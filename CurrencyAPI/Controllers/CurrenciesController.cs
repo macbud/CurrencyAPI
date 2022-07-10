@@ -33,5 +33,20 @@ namespace CurrencyAPI.Controllers
             var newCurrency = await _currencyRepository.Create(currency);
             return CreatedAtAction(nameof(GetCurrencies), new { id = newCurrency.id }, newCurrency);
         }
+
+        
+        [HttpPut]
+        public async Task<ActionResult<Currency>> PutCurrency(int id, [FromBody] Currency currency)
+        {
+            if(id != currency.id)
+            {
+                return BadRequest();
+            }
+            
+            await _currencyRepository.Update(currency);
+
+            return NoContent();
+        }
+        
     }
 }
