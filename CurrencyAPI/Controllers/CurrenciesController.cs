@@ -47,6 +47,19 @@ namespace CurrencyAPI.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<Currency>> DeleteCurrency(int id)
+        {
+            var currencyToDelete = await _currencyRepository.Get(id);
+            if(currencyToDelete == null)
+            {
+                return NotFound();
+            }
+            await _currencyRepository.Delete(currencyToDelete.id);
+
+            return NoContent();
+        }
         
     }
 }
